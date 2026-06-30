@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog
 
+from services.pdf_finder import find_pdfs
+
 
 class HomePage:
 
@@ -27,7 +29,10 @@ class HomePage:
             self.directory.set(folder)
 
     def search_pdfs(self):
-        print(self.directory.get())
+
+        pdf_files = find_pdfs(self.directory.get())
+
+        print(pdf_files)
 
     def create_widgets(self):
 

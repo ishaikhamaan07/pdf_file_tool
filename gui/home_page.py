@@ -1,0 +1,53 @@
+import tkinter as tk
+from tkinter import filedialog
+
+
+class HomePage:
+
+    def __init__(self):
+
+        self.window = tk.Tk()
+
+        self.window.title("PDF File Tool")
+
+        self.window.geometry("700x250")
+
+        self.directory = tk.StringVar()
+
+        self.create_widgets()
+
+        self.window.mainloop()
+
+    def browse_directory(self):
+
+        folder = filedialog.askdirectory()
+
+        if folder:
+
+            self.directory.set(folder)
+
+    def create_widgets(self):
+
+        title = tk.Label(
+            self.window,
+            text="PDF File Tool",
+            font=("Arial", 20)
+        )
+
+        title.pack(pady=10)
+
+        entry = tk.Entry(
+            self.window,
+            textvariable=self.directory,
+            width=60
+        )
+
+        entry.pack(pady=10)
+
+        browse_button = tk.Button(
+            self.window,
+            text="Browse",
+            command=self.browse_directory
+        )
+
+        browse_button.pack()

@@ -1,6 +1,5 @@
-from utils.messages import INVALID_PATH
-from utils.validators import validate_path
+from services.pdf_finder import find_pdfs
 
-print(validate_path(""))
-print(validate_path("C:\\Users"))
-print(validate_path("C:\\ABCXYZ"))
+directory = r"C:\Users\Amaan\OneDrive\Desktop\sample cvs"
+
+print(find_pdfs(directory))

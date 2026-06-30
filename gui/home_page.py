@@ -26,6 +26,9 @@ class HomePage:
 
             self.directory.set(folder)
 
+    def search_pdfs(self):
+        print(self.directory.get())
+
     def create_widgets(self):
 
         title = tk.Label(
@@ -51,3 +54,12 @@ class HomePage:
         )
 
         browse_button.pack()
+
+        search_button = tk.Button(
+            self.window,
+            text="Search PDFs",
+            width=20,
+            command=self.search_pdfs
+        )
+
+        search_button.pack(pady=15)

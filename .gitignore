@@ -1,0 +1,18 @@
+# PyCharm files
+.idea/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env
+
+# Conda environment folders (if created inside project)
+env/
+.conda/
+
+# OS files
+.DS_Store
+Thumbs.db

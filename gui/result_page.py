@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
-from tkinter import messagebox
+
+from tkinter import messagebox, filedialog
 
 from services.pdf_merger import merge_pdfs
 
@@ -21,14 +22,30 @@ class ResultPage:
 
     def merge_all_pdfs(self):
 
-        output_file = "merged_output.pdf"
-
-        merge_pdfs(self.pdf_files, output_file)
-
-        messagebox.showinfo(
-        "Success",
-        "PDF files merged successfully!"
+        output_file = filedialog.asksaveasfilename(
+            defaultextension=".pdf",
+            filetypes=[("PDF files", "*.pdf")],
+            initialfile="merged_output.pdf"
         )
+
+        if not output_file:
+            return
+
+        success = merge_pdfs(self.pdf_files, output_file)
+
+        if success:
+
+            messagebox.showinfo(
+                "Success",
+                f"PDF files merged successfully!\n\nSaved to:\n{output_file}"
+            )
+
+        else:
+
+            messagebox.showerror(
+                "Merge Failed",
+                "Failed to merge PDF files."
+            )
 
     def create_widgets(self):
 

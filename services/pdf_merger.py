@@ -8,8 +8,21 @@ def merge_pdfs(pdf_files, output_file):
 
     merger = PdfMerger()
 
-    for pdf in pdf_files:
-        merger.append(pdf)
+    try:
 
-    merger.write(output_file)
-    merger.close()
+        for pdf in pdf_files:
+            merger.append(pdf)
+
+        merger.write(output_file)
+
+        return True
+
+    except Exception as error:
+
+        print(f"Merge Error: {error}")
+
+        return False
+
+    finally:
+
+        merger.close()

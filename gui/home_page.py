@@ -1,8 +1,13 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 from services.pdf_finder import find_pdfs
 from gui.result_page import ResultPage
+from utils.messages import (
+    INVALID_PATH,
+    NO_PDF_FOUND,
+    ONE_PDF_FOUND
+)
 
 class HomePage:
 
@@ -29,7 +34,31 @@ class HomePage:
             self.directory.set(folder)
 
     def search_pdfs(self):
-        pdf_files = find_pdfs(self.directory.get())
+
+        directory = self.directory.get()
+
+        if not directory:
+            messagebox.showwarning(
+                "Warning",
+                INVALID_PATH
+            )
+            return
+
+        pdf_files = find_pdfs(directory)
+
+        if len(pdf_files) == 1:
+            messagebox.showinfo(
+                "Only one PDF file was found. Nothing to merge.",
+                ONE_PDF_FOUND
+            )
+            return
+
+        if not pdf_files:
+            messagebox.showinfo(
+                "No PDFs Found",
+                NO_PDF_FOUND
+            )
+            return
 
         ResultPage(pdf_files)
 

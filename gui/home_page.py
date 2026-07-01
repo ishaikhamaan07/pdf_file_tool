@@ -1,13 +1,14 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-from services.pdf_finder import find_pdfs
 from gui.result_page import ResultPage
+from services.pdf_finder import find_pdfs
 from utils.messages import (
     INVALID_PATH,
     NO_PDF_FOUND,
-    ONE_PDF_FOUND
+    ONE_PDF_FOUND,
 )
+
 
 class HomePage:
 
@@ -16,8 +17,8 @@ class HomePage:
         self.window = tk.Tk()
 
         self.window.title("PDF File Tool")
-
-        self.window.geometry("700x250")
+        self.window.geometry("750x350")
+        self.window.resizable(False, False)
 
         self.directory = tk.StringVar()
 
@@ -30,7 +31,6 @@ class HomePage:
         folder = filedialog.askdirectory()
 
         if folder:
-
             self.directory.set(folder)
 
     def search_pdfs(self):
@@ -48,7 +48,7 @@ class HomePage:
 
         if len(pdf_files) == 1:
             messagebox.showinfo(
-                "Only one PDF file was found. Nothing to merge.",
+                "One PDF Found",
                 ONE_PDF_FOUND
             )
             return
@@ -67,32 +67,61 @@ class HomePage:
         title = tk.Label(
             self.window,
             text="PDF File Tool",
-            font=("Arial", 20)
+            font=("Segoe UI", 22, "bold")
         )
 
-        title.pack(pady=10)
+        title.pack(pady=(20, 5))
+
+        subtitle = tk.Label(
+            self.window,
+            text="Merge multiple PDF files into one document",
+            font=("Segoe UI", 10)
+        )
+
+        subtitle.pack(pady=(0, 20))
+
+        folder_label = tk.Label(
+            self.window,
+            text="Folder Location",
+            font=("Segoe UI", 10, "bold")
+        )
+
+        folder_label.pack()
 
         entry = tk.Entry(
             self.window,
             textvariable=self.directory,
-            width=60
+            width=75,
+            font=("Segoe UI", 10)
         )
 
-        entry.pack(pady=10)
+        entry.pack(pady=10, ipady=4)
 
         browse_button = tk.Button(
             self.window,
-            text="Browse",
+            text="Browse Folder",
+            width=22,
+            height=2,
             command=self.browse_directory
         )
 
-        browse_button.pack()
+        browse_button.pack(pady=8)
 
         search_button = tk.Button(
             self.window,
             text="Search PDFs",
-            width=20,
+            width=22,
+            height=2,
             command=self.search_pdfs
         )
 
-        search_button.pack(pady=15)
+        search_button.pack(pady=10)
+
+        status = tk.Label(
+            self.window,
+            text="Status: Ready",
+            font=("Segoe UI", 9),
+            fg="gray"
+        )
+
+        status.pack(side="bottom", pady=10)

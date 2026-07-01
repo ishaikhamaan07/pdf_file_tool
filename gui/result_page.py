@@ -14,7 +14,7 @@ class ResultPage:
 
         self.window.title("Search Results")
 
-        self.window.geometry("700x450")
+        self.window.geometry("750x500")
 
         self.pdf_files = pdf_files
 
@@ -52,26 +52,38 @@ class ResultPage:
         title = tk.Label(
             self.window,
             text="PDF Search Results",
-            font=("Arial", 18)
+            font=("Segoe UI", 20, "bold")
         )
 
-        title.pack(pady=10)
+        title.pack(pady=(20, 5))
 
         count_label = tk.Label(
             self.window,
-            text=f"PDF Files Found: {len(self.pdf_files)}",
-            font=("Arial", 12)
+            text=f"✓ {len(self.pdf_files)} PDF files found",
+            font=("Segoe UI", 11)
         )
 
-        count_label.pack(pady=10)
+        count_label.pack(pady=(0, 15))
+
+        frame = tk.Frame(self.window)
+
+        frame.pack(padx=20, pady=10, fill="both", expand=True)
+
+        scrollbar = tk.Scrollbar(frame)
+
+        scrollbar.pack(side="right", fill="y")
 
         listbox = tk.Listbox(
-            self.window,
-            width=80,
-            height=15
+            frame,
+            width=75,
+            height=10,
+            font=("Segoe UI", 10),
+            yscrollcommand=scrollbar.set
         )
 
-        listbox.pack(pady=10)
+        listbox.pack(side="left", fill="both", expand=True)
+
+        scrollbar.config(command=listbox.yview)
 
         for pdf in self.pdf_files:
             listbox.insert(tk.END, os.path.basename(pdf))
@@ -79,8 +91,9 @@ class ResultPage:
         merge_button = tk.Button(
             self.window,
             text="Merge PDFs",
-            width=20,
+            width=22,
+            height=2,
             command=self.merge_all_pdfs
         )
 
-        merge_button.pack(pady=15)
+        merge_button.pack(pady=(15,25))
